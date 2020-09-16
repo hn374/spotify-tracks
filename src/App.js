@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'rsuite/dist/styles/rsuite-default.css';
-import { Input, Grid, Col, Row } from 'rsuite';
+import { Input, Grid, Col, Row, IconButton, Icon } from 'rsuite';
 
 function App() {
   const [artistName, setArtistName] = useState('');
@@ -19,6 +19,9 @@ function App() {
     }).then((res) => res.json())
     .then((res) => {
       console.log(res);
+    })
+    .catch((error) => {
+      console.log('Request failed: ', error);
     });
   }
 
@@ -27,7 +30,7 @@ function App() {
       <Grid fluid>
         <Row>
           <Col>
-            <SearchBar setArtist={setArtistName}/>
+            <SearchBar artistName={artistName} setArtist={setArtistName} getArtistPopularTracks={getArtistPopularTracks}/>
           </Col>
         </Row>
         <Row>
@@ -42,6 +45,7 @@ function SearchBar(props) {
   return (
     <div>
       <Input style={{ width: 300 }} placeholder="Search Artist" onChange={(value) => props.setArtist(value)}/>
+      <IconButton size="md" icon={<Icon icon='search' />} onClick={() => {props.getArtistPopularTracks(props.artistName)}}/>
     </div>
   );
 }
