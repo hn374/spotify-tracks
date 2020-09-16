@@ -2,19 +2,21 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'rsuite/dist/styles/rsuite-default.css';
 import { Input, Grid, Col, Row, IconButton, Icon } from 'rsuite';
+import  config  from './config.js';
 
 function App() {
   const [artistName, setArtistName] = useState('');
 
-  function getArtistPopularTracks(artistName) {
-    var getUrl = 'https://api.spotify.com/v1/search?q=' + artistName + '&type=artist&market=US&limit=10&offset=5'
+  function getArtistPopularTracks(artist) {
+    var getUrl = 'https://api.spotify.com/v1/search?q=' + artist + '&type=artist&market=US&limit=10&offset=5'
 
     fetch(getUrl, {
       method: 'get',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        // Authorization: Bearer BQBQg6rnSPguURQdI57ytEjqIQU-SxlwcOYkhalBwf52o5n6FI2z3tHa70FaWYbWQWrjlwhgIrBPoRgVofv9X-qm4l4f-Mbef9zh77iYoxmiIYrOPHqCD4rxYOf0CT5BTqVfUKK2uX_ZjQ
+        Authorization: 'Bearer ' + config.ENCODED_CLIENT_KEYS
+        // Authorization: 'Bearer BQDrPHrLMu_gLmR0jHbSMz7-lDck_BXre2FGPcQ4N2OrOod_QOfWux-MT9Yb65E88OsG2HzT4e5FXIxWxdoBNmHgHdK6-zVcBVqx9l-tZOALDuPi1Fs4EkiBGFN5iEcqjxOxQjL3QBsRRw'
       }
     }).then((res) => res.json())
     .then((res) => {
@@ -28,9 +30,12 @@ function App() {
   return (
     <div className="App">
       <Grid fluid>
-        <Row>
-          <Col>
-            <SearchBar artistName={artistName} setArtist={setArtistName} getArtistPopularTracks={getArtistPopularTracks}/>
+        <Row className="searchBar">
+          <Col xs={12}>
+            <SearchBar setArtist={setArtistName} />
+          </Col>
+          <Col xs={12}>
+            <IconButton className="searchButton" size="md" icon={<Icon icon='search' onClick={() => getArtistPopularTracks(artistName)}/>} />
           </Col>
         </Row>
         <Row>
@@ -44,8 +49,7 @@ function App() {
 function SearchBar(props) {
   return (
     <div>
-      <Input style={{ width: 300 }} placeholder="Search Artist" onChange={(value) => props.setArtist(value)}/>
-      <IconButton size="md" icon={<Icon icon='search' />} onClick={() => {props.getArtistPopularTracks(props.artistName)}}/>
+      <Input style={{ width: 200 }} placeholder="Search Artist" onChange={(value) => props.setArtist(value)}/>
     </div>
   );
 }
