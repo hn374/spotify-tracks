@@ -6,6 +6,11 @@ import  config  from './config.js';
 
 function App() {
   const [artistName, setArtistName] = useState('');
+  const [popularTracks, setPopularTracks] = useState([]);
+
+  useEffect(() => {
+    document.title = "Spotify Tracks";
+  }, [])
 
   function getArtistPopularTracks(artist) {
     var getUrl = 'https://api.spotify.com/v1/search?q=' + artist + '&type=artist&market=US&limit=10&offset=5'
