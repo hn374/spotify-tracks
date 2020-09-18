@@ -15,9 +15,24 @@ function App() {
   }, [])
 
   function authenticateSpotify() {
-    var getUrl = 'https://accounts.spotify.com/authorize?client_id=' + config.CLIENT_ID + '&response_type=code&redirect_uri=https://localhost:3000';
+    // var getUrl = 'https://accounts.spotify.com/authorize?client_id=' + config.CLIENT_ID + '&response_type=code&redirect_uri=https://localhost:3000';
 
-    fetch(getUrl, {
+    // fetch(getUrl, {
+    //   method: 'get', 
+    //   headers: {
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    // .then((res) => res.json())
+    // .then((res) => {
+    //   console.log(res);
+    // })
+    // .catch((error) => {
+    //   console.log(error);
+    // });
+
+    fetch('http://localhost:3001/authSpotify?client_id=' + config.CLIENT_ID, {
       method: 'get', 
       headers: {
         Accept: 'application/json',
