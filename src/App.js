@@ -10,7 +10,28 @@ function App() {
 
   useEffect(() => {
     document.title = "Spotify Tracks";
+
+    authenticateSpotify();
   }, [])
+
+  function authenticateSpotify() {
+    var getUrl = 'https://accounts.spotify.com/authorize?client_id=' + config.CLIENT_ID + '&response_type=code&redirect_uri=https://localhost:3000';
+
+    fetch(getUrl, {
+      method: 'get', 
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
 
   function getArtistPopularTracks(artist) {
     var getUrl = 'https://api.spotify.com/v1/search?q=' + artist + '&type=artist&market=US&limit=10&offset=5'
@@ -23,7 +44,8 @@ function App() {
         Authorization: 'Bearer ' + config.ENCODED_CLIENT_KEYS
         // Authorization: 'Bearer BQDrPHrLMu_gLmR0jHbSMz7-lDck_BXre2FGPcQ4N2OrOod_QOfWux-MT9Yb65E88OsG2HzT4e5FXIxWxdoBNmHgHdK6-zVcBVqx9l-tZOALDuPi1Fs4EkiBGFN5iEcqjxOxQjL3QBsRRw'
       }
-    }).then((res) => res.json())
+    })
+    .then((res) => res.json())
     .then((res) => {
       console.log(res);
     })
