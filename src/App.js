@@ -57,7 +57,6 @@ function App() {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + config.ENCODED_CLIENT_KEYS
-        // Authorization: 'Bearer BQDrPHrLMu_gLmR0jHbSMz7-lDck_BXre2FGPcQ4N2OrOod_QOfWux-MT9Yb65E88OsG2HzT4e5FXIxWxdoBNmHgHdK6-zVcBVqx9l-tZOALDuPi1Fs4EkiBGFN5iEcqjxOxQjL3QBsRRw'
       }
     })
     .then((res) => res.json())
@@ -72,6 +71,11 @@ function App() {
   return (
     <div className="App">
       <Grid fluid>
+        <Row>
+          <Col>
+            <h1 className="pageHeader">Spotify Tracks</h1>
+          </Col>
+        </Row>
         <Row className="searchBar">
           <Col xs={12}>
             <SearchBar setArtist={setArtistName} />
